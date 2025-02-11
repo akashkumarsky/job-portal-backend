@@ -26,11 +26,10 @@ public class AuthService {
             throw new IllegalArgumentException("User already exists");
         }
 
-        User user =  User.builder()
-                .email(request.email())
-                .password(passwordEncoder.encode(request.password()))
-                .role(Role.valueOf(request.role()))
-                .build();
+       User user = new User();
+                user.setEmail(request.email());
+                user.setPassword(passwordEncoder.encode(request.password()));
+                user.setRole(Role.valueOf(request.role()));
 
         userRepository.save(user);
 
