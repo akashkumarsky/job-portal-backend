@@ -1,6 +1,7 @@
 package com.Board.job.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users")
+@Builder
 public class User implements UserDetails {
 
     @Id
@@ -25,7 +27,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 
@@ -38,6 +40,16 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -58,4 +70,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
 }
