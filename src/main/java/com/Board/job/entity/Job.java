@@ -1,10 +1,14 @@
 package com.Board.job.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
 @Data
+@Builder
+@Getter
 @Table(name = "jobs")
 public class Job {
 
@@ -21,8 +25,11 @@ public class Job {
     @Column(nullable = false)
     private String location;
 
+    private double salary;
+
     @Column(nullable = false)
     private String company;
+
 
 // linking to the employer who posted the job
     @ManyToOne(fetch = FetchType.LAZY)
