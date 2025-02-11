@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,8 @@ import java.util.function.Function;
 public class JwtService {
 
 
-    private static final String SECRET_KEY = "dsfjfodfodfidsfoifiofdfiodfiododff";
+    private static final String SECRET_KEY = Base64.getEncoder()
+            .encodeToString(Keys.secretKeyFor(SignatureAlgorithm.HS256).getEncoded());
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -57,8 +59,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyBytes);
+        return Keys.hmacShaKeyFor(Base64.getDecoder().decode(SECRET_KEY));
     }
 
     private boolean isTokenExpired(String token) {
