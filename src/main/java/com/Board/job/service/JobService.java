@@ -33,14 +33,13 @@ public class JobService {
         User employer = (User) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
 
-        Job job = Job.builder()
-                .title(request.title())  // No getTitle(), just title() becoz of record
-                .description(request.description())
-                .location(request.location())
-                .salary(request.salary())
-                .company(request.company())
-                .user(employer)
-                .build();
+        Job job = new Job();
+        job.setTitle(request.title());
+        job.setDescription(request.description());
+        job.setLocation(request.location());
+        job.setSalary(request.salary());
+        job.setCompany(request.company());
+        job.setUser(employer);
 
         return jobRepository.save(job);
     }
