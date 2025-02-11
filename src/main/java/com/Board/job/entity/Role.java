@@ -3,7 +3,7 @@ package com.Board.job.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    EMPLOYER, JOBSEEKER;
+    EMPLOYER, JOB_SEEKER;
 
     @Override
     public String getAuthority() {
